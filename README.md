@@ -1,73 +1,80 @@
-# Welcome to your Lovable project
+# FreelanceTN - Tunisian Freelancing Marketplace
 
-## Project info
+A full-stack freelancing platform built for Tunisia, connecting clients with skilled freelancers.
 
-**URL**: https://lovable.dev/projects/d0ecf06f-c409-48af-a368-23f450c1d796
+## 🚀 Quick Start
 
-## How can I edit this code?
+### Prerequisites
+- Node.js (v16 or higher)
+- MySQL (v8.0 or higher) 
+- XAMPP (for local MySQL)
 
-There are several ways of editing your application.
+### Frontend Setup
+```bash
+# Install dependencies
+npm install
 
-**Use Lovable**
+# Copy environment variables
+cp env.example .env
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/d0ecf06f-c409-48af-a368-23f450c1d796) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Backend Setup
+```bash
+# Navigate to backend directory
+cd backend
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+# Install dependencies
+npm install
 
-**Use GitHub Codespaces**
+# Copy environment variables
+cp env.example .env
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+# Set up database
+npm run migrate
 
-## What technologies are used for this project?
+# Start development server
+npm run dev
+```
 
-This project is built with:
+## 🛠 Tech Stack
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Frontend
+- **React 18** with TypeScript
+- **Vite** for build tooling
+- **Tailwind CSS** for styling
+- **Shadcn/ui** for components
+- **React Router** for navigation
+- **Sonner** for toast notifications
 
-## How can I deploy this project?
+### Backend
+- **Node.js** with Express
+- **MySQL** database
+- **JWT** authentication
+- **bcrypt** for password hashing
+- **Express Rate Limit** for security
 
-Simply open [Lovable](https://lovable.dev/projects/d0ecf06f-c409-48af-a368-23f450c1d796) and click on Share -> Publish.
+## 📋 Features
 
-## Can I connect a custom domain to my Lovable project?
+- ✅ User authentication (sign up, sign in, logout)
+- ✅ Job posting and browsing
+- ✅ Proposal system
+- ✅ Real-time messaging
+- ✅ Notification system
+- ✅ Role-based dashboards
+- ✅ Category and skill management
 
-Yes, you can!
+## 🔧 Development
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+The project consists of two main parts:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+1. **Frontend** (`/src`) - React application
+2. **Backend** (`/backend`) - Node.js API server
+
+Both need to be running simultaneously for full functionality.
+
+## 📄 License
+
+This project is licensed under the MIT License.

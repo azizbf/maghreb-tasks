@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Clock, DollarSign, Briefcase } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export interface Job {
   id: string;
@@ -76,7 +77,9 @@ const JobCard = ({ job }: JobCardProps) => {
 
         <div className="flex justify-between items-center pt-2">
           <span className="text-xs text-muted-foreground">{job.postedAt}</span>
-          <Button size="sm">Apply Now</Button>
+          <Link to={`/job/${job.id}`}>
+            <Button size="sm">View Details</Button>
+          </Link>
         </div>
       </div>
     </Card>

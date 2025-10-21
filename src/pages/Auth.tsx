@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -26,6 +26,7 @@ const signInSchema = z.object({
 const Auth = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { login, register, isAuthenticated, loading: authLoading } = useAuth();
   const [loading, setLoading] = useState(false);
   const [activeTab, setActiveTab] = useState<"signin" | "signup">("signup");
 
@@ -41,14 +42,10 @@ const Auth = () => {
 
   useEffect(() => {
     // Check if user is already logged in
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        navigate("/dashboard");
-      }
-    };
-    checkUser();
-  }, [navigate]);
+    if (isAuthenticated) {
+      navigate("/dashboard");
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,21 +60,21 @@ const Auth = () => {
         role: userRole,
       });
 
-      const redirectUrl = `${window.location.origin}/dashboard`;
-
-      const { data, error } = await supabase.auth.signUp({
+      const result = await register({
         email: validatedData.email,
         password: validatedData.password,
-        options: {
-          emailRedirectTo: redirectUrl,
-          data: {
-            full_name: validatedData.fullName,
-          },
-        },
+        full_name: validatedData.fullName,
+        role: validatedData.role,
       });
 
-      if (error) {
-        if (error.message.includes("already registered")) {
+      if (result.success) {
+        toast({
+          title: "Welcome to FreelanceTN!",
+          description: `Your ${validatedData.role} account has been created successfully.`,
+        });
+        navigate("/dashboard");
+      } else {
+        if (result.message.includes("already exists")) {
           toast({
             title: "Account exists",
             description: "This email is already registered. Please sign in instead.",
@@ -86,30 +83,12 @@ const Auth = () => {
           setActiveTab("signin");
           setSignInEmail(validatedData.email);
         } else {
-          throw error;
-        }
-        return;
-      }
-
-      if (data.user) {
-        // Insert user role
-        const { error: roleError } = await supabase
-          .from("user_roles")
-          .insert({
-            user_id: data.user.id,
-            role: validatedData.role,
+          toast({
+            title: "Error",
+            description: result.message,
+            variant: "destructive",
           });
-
-        if (roleError) {
-          console.error("Role insertion error:", roleError);
         }
-
-        toast({
-          title: "Welcome to FreelanceTN!",
-          description: `Your ${validatedData.role} account has been created successfully.`,
-        });
-
-        navigate("/dashboard");
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -141,22 +120,20 @@ const Auth = () => {
         password: signInPassword,
       });
 
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email: validatedData.email,
-        password: validatedData.password,
-      });
+      const result = await login(validatedData.email, validatedData.password);
 
-      if (error) {
-        throw error;
-      }
-
-      if (data.session) {
+      if (result.success) {
         toast({
           title: "Welcome back!",
           description: "You've successfully signed in.",
         });
-
         navigate("/dashboard");
+      } else {
+        toast({
+          title: "Sign In Failed",
+          description: result.message,
+          variant: "destructive",
+        });
       }
     } catch (error) {
       if (error instanceof z.ZodError) {
