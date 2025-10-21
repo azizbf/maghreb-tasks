@@ -60,9 +60,11 @@ const Index = () => {
                   Browse Jobs
                 </Button>
               </Link>
-              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-                Post a Job
-              </Button>
+              <Link to="/auth">
+                <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+                  Post a Job
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -140,12 +142,16 @@ const Index = () => {
             Join thousands of freelancers and clients building successful projects together on FreelanceTN
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-              Join as Freelancer
-            </Button>
-            <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur border-white/20 text-white hover:bg-white/20">
-              Hire Talent
-            </Button>
+            <Link to="/auth">
+              <Button size="lg" className="bg-white text-primary hover:bg-white/90">
+                Join as Freelancer
+              </Button>
+            </Link>
+            <Link to="/auth">
+              <Button size="lg" variant="outline" className="bg-white/10 backdrop-blur border-white/20 text-white hover:bg-white/20">
+                Hire Talent
+              </Button>
+            </Link>
           </div>
         </div>
       </section>

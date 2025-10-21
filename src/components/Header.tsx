@@ -29,13 +29,17 @@ const Header = () => {
             <Search className="h-5 w-5" />
           </Button>
           
-          <Button variant="ghost" size="sm" className="hidden md:flex">
-            Sign In
-          </Button>
+          <Link to="/auth">
+            <Button variant="ghost" size="sm" className="hidden md:flex">
+              Sign In
+            </Button>
+          </Link>
           
-          <Button size="sm" className="hidden md:flex">
-            Get Started
-          </Button>
+          <Link to="/auth">
+            <Button size="sm" className="hidden md:flex">
+              Get Started
+            </Button>
+          </Link>
 
           <Button variant="ghost" size="icon" className="md:hidden">
             <Menu className="h-5 w-5" />
