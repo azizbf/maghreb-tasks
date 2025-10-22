@@ -43,10 +43,10 @@ export const proposalLimiter = createRateLimit(
   'Too many proposals, please try again later'
 );
 
-// Messaging rate limiting (very permissive for development)
+// Messaging rate limiting (very permissive in development due to polling)
 export const messagingLimiter = createRateLimit(
   15 * 60 * 1000, // 15 minutes
-  200, // limit each IP to 200 requests per windowMs (reasonable for messaging)
+  process.env.NODE_ENV === 'production' ? 200 : 10000, // 10000 in dev, 200 in prod
   'Too many messaging requests, please try again later'
 );
 
